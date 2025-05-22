@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,6 @@ Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 
 Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
 Route::post('/register', [LoginController::class, 'registerCreate'])->name('registerCreate');
+
+
+Route::get('/products', [ProductController::class, 'index'])->name('index');
