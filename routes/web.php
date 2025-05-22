@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ Route::get('/', function () {
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/register', [LoginController::class, 'register'])->name('register');
+Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 
-Route::post('/login', [LoginController::class, 'authentication'])->name('authentication');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
 Route::post('/register', [LoginController::class, 'registerCreate'])->name('registerCreate');
