@@ -9,15 +9,24 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    public function login(Request $request){
+    public function login(Request $request)
+    {
+        if (Auth::check()) {
+            return redirect()->route('catalog');
+        }
+
         return view('login');
     }
 
     public function register(Request $request){
+        if (Auth::check()) {
+            return redirect()->route('catalog');
+        }
         return view('register');
     }
 
-    public function authenticate(Request $request){
+    public function authenticate(Request $request)
+    {
         $arr = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required']
@@ -32,7 +41,8 @@ class LoginController extends Controller
         ])->onlyInput('email');
     }
 
-    public function registerCreate(Request $request){
+    public function registerCreate(Request $request)
+    {
 
         $request->validate([
             'username' => ['required', 'string', 'max:255'],
@@ -48,5 +58,11 @@ class LoginController extends Controller
         ]);
 
         return redirect()->route('login');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('catalog');
     }
 }
