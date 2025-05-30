@@ -10,7 +10,7 @@
 <body>
 <h3>Продукты</h3>
 <div>
-    <a href="">Добавить продукт</a>
+    <a href="{{route('admin.products.create')}}">Добавить продукт</a>
     <hr>
 </div>
 
@@ -23,7 +23,7 @@
             <div>Цена: {{$product->price}}</div>
             <div>Тип товара: {{$product->type->name}}</div>
             <div>
-            <a href="">Редактировать</a>
+            <a href="{{route('admin.products.edit')}}">Редактировать</a>
             <a href="">Удалить</a>
             </div>
         </div>
