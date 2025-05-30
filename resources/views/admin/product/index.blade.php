@@ -8,6 +8,7 @@
     <title>Продукты</title>
 </head>
 <body>
+<a href="{{route('admin.dashboard')}}">Назад</a>
 <h3>Продукты</h3>
 <div>
     <a href="{{route('admin.products.create')}}">Добавить продукт</a>
@@ -23,8 +24,14 @@
             <div>Цена: {{$product->price}}</div>
             <div>Тип товара: {{$product->type->name}}</div>
             <div>
-            <a href="{{route('admin.products.edit')}}">Редактировать</a>
-            <a href="">Удалить</a>
+            <a href="{{route('admin.products.edit', $product->id)}}">Редактировать</a>
+            <div>
+                <form action="{{route('admin.products.delete', $product->id)}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <input type="submit" value="Удалить">
+                </form>
+            </div>
             </div>
         </div>
         <hr>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -37,12 +38,18 @@ Route::middleware(['auth', 'isAdmin'])
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-        Route::get('/products/edit/{product}', [ProductController::class, 'edit'])->name('products.edit');
-//        Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
-//        Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+        Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+        Route::put('/products/{product}/edit', [ProductController::class, 'update'])->name('products.update');
+        Route::delete('/products/{product}', [ProductController::class, 'delete'])->name('products.delete');
         Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
         Route::post('/products/create', [ProductController::class, 'store'])->name('products.store');
     });
+
+Route::middleware('auth')->group(function (){
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
+
+});
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Product\UpdateRequest;
 use App\Models\Product;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -37,6 +38,28 @@ class ProductController extends Controller
         ]);
 
         return redirect()->route('admin.products.index');
+    }
+
+    public function edit(Product $product)
+    {
+        $types = Type::all();
+        return view('admin.product.edit', compact('product', 'types'));
+    }
+
+    public function update(Product $product, UpdateRequest $request)
+    {
+        $data = $request->validated();
+        $product->update($data);
+
+        return redirect()->route('admin.products.index');
+
+    }
+
+    public function delete(Product $product)
+    {
+        $product->delete();
+        return redirect()->route('admin.products.index');
+
     }
 
 

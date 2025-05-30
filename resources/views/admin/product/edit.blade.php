@@ -9,25 +9,27 @@
 </head>
 <body>
 <a href="{{route('admin.products.index')}}">Назад</a>
-<form method="post" action="{{route('admin.products.store')}}">
+
+<form method="post" action="{{route('admin.products.update', $product->id)}}">
     @csrf
+    @method('Put')
     <label for="name">Название</label>
     <br>
-    <input type="text" name="name" value="{{old('name')}}">
+    <input type="text" name="name" value="{{$product->name}}">
     @error('name')
     {{$message}}
     @enderror
     <br>
     <label for="description">Описание</label>
     <br>
-    <input type="text" name="description" value="{{old('description')}}">
+    <input type="text" name="description" value="{{$product->description}}">
     @error('description')
     {{$message}}
     @enderror
     <br>
     <label for="price">Цена</label>
     <br>
-    <input type="text" name="price" value="{{old('price')}}">
+    <input type="text" name="price" value="{{$product->price}}">
     @error('price')
     {{$message}}
     @enderror
@@ -35,9 +37,9 @@
     <label for="name">Тип продукта</label>
     <br>
     <select name="type_id" id="">
-        <option disabled selected>Выберите тип</option>
+        <option disabled>Выберите тип</option>
         @foreach($types as $type)
-            <option value="{{ $type->id }}" @selected(old('type_id') == $type->id)>
+            <option value="{{ $type->id }}" {{$product->type_id == $type->id ? 'selected' : ''}} >
                 {{ $type->name }}
             </option>
         @endforeach
@@ -45,7 +47,7 @@
     @error('type_id')
     {{$message}}
     @enderror
-    <p><button type="submit">Добавить</button></p>
+    <p><button type="submit">Сохранить</button></p>
 </form>
 </body>
 </html>

@@ -9,6 +9,7 @@
 </head>
 <body>
 <a href="{{route('admin.products.index')}}">Назад</a>
+
 <form method="post" action="{{route('admin.products.store')}}">
     @csrf
     <label for="name">Название</label>
