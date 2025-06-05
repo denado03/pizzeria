@@ -35,5 +35,8 @@
             @endforeach
                 Итого : {{$total}}$
         </div>
+        <div>
+            <a href="{{route('order.index')}}">Оформить заказ</a>
+        </div>
     </div>
 </div>
