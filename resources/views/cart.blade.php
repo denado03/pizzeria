@@ -35,8 +35,13 @@
             @endforeach
                 Итого : {{$total}}$
         </div>
-        <div>
-            <a href="{{route('order.index')}}">Оформить заказ</a>
-        </div>
+        @if($total == 0)
+            Корзина пуста
+        @else
+            <div>
+                <a href="{{route('order.index')}}">Оформить заказ</a>
+            </div>
+        @endif
+
     </div>
 </div>

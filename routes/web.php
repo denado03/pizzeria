@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function (){
     Route::delete('/cart/{cart}', [CartController::class, 'delete'])->name('cart.delete');
 
     Route::get('/order',[OrderController::class, 'index'])->name('order.index');
+    Route::post('/order',[OrderController::class, 'store'])->name('order.store');
 
 });
 

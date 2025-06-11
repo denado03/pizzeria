@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -29,9 +30,12 @@ class DevCommand extends Command
 
     public function handle()
     {
-        $user = User::find(2);
-        $user->role_id=2;
-        $user->save();
+        OrderStatus::insert([
+            ['name' => 'В обработке'],
+            ['name' => 'Доставляется'],
+            ['name' => 'Завершен'],
+            ['name' => 'Отменен'],
+        ]);
 
 
         return 0;

@@ -22,7 +22,13 @@
             <a href="{{route('register')}}">Регистрация</a>
         </div>
     @endauth
-
+    <div>
+        @if(session('success'))
+            <div style="font-size: 18px; color:green">
+                {{session('success')}}
+            </div>
+        @endif
+    </div>
     <div>
         @foreach($products as $product)
             <div style="border: 1px solid">
@@ -43,5 +49,16 @@
                 </form>
             </div>
         @endforeach
+
     </div>
 </div>
+
+<div class="my-nav">
+    {{$products->links()}}
+</div>
+
+<style>
+    .my-nav svg{
+        width: 20px;
+    }
+</style>

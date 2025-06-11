@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CatalogController extends Controller
 {
     public function index(Request $request){
-        $products = Product::all();
+        $products = Product::paginate(5);
         return view('catalog', compact('products'));
     }
 

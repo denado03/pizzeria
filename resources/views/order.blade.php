@@ -33,32 +33,46 @@
         </div>
         <div>
             <h4>Заполните данные для доставки:</h4>
-            <form method="post" action="">
+            <form method="post" action="{{route('order.store')}}">
                 @csrf
                 <label for="">Имя</label>
                 <br>
                 <input type="text" name="name">
-
+                @error('name')
+                {{$message}}
+                @enderror
                 <br><label for="">Контактный номер</label>
                 <br>
-                <input type="text" name="phone_number" placeholder="+375()">
+                <input type="text" name="phone_number" placeholder="+375">
+                @error('phone_number')
+                {{$message}}
+                @enderror
                 <br>
 
                 <label for="">Электронная почта</label>
                 <br>
                 <input type="text" name="email">
+                @error('email')
+                {{$message}}
+                @enderror
                 <br>
 
                 <label for="">Адрес доставки</label>
                 <br>
                 <input type="text" name="address">
+                @error('address')
+                {{$message}}
+                @enderror
                 <br>
 
-                <input type="hidden" value="{{$total}}">
-                <input type="hidden" value="{{$cartProduct->product->name}}">
-                <input type="hidden" value="{{$cartProduct->product->description}}">
-                <input type="hidden" value="{{$cartProduct->product->price}}">
-                <input type="hidden" value="{{$cartProduct->quantity}}">
+                <input type="hidden" name="total" value="{{$total}}">
+                @foreach($cartProducts as $index => $cartProduct)
+                    <input type="hidden" name="products[{{$index}}][name]" value="{{$cartProduct->product->name}}">
+                    <input type="hidden" name="products[{{$index}}][description]" value="{{$cartProduct->product->description}}">
+                    <input type="hidden" name="products[{{$index}}][price]" value="{{$cartProduct->product->price}}">
+                    <input type="hidden" name="products[{{$index}}][id]" value="{{$cartProduct->product->id}}">
+                    <input type="hidden" name="products[{{$index}}][quantity]" value="{{$cartProduct->quantity}}">
+                @endforeach
 
                 <button type="submit">Оформить заказ</button>
             </form>
