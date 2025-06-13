@@ -4,7 +4,7 @@
     <a href="{{route('catalog', ['name' => 'Напиток'])}}">Напитки</a>
     @auth
         <div style="margin-left: 90%">
-            <a href="">Мои заказы</a>
+            <a href="{{route('orders.index')}}">Мои заказы</a>
             <form method="GET" action="{{ route('cart.index') }}" style="display:inline">
                 <button type="submit">
                     Корзина

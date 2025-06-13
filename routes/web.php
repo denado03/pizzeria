@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function (){
     Route::post('/order',[OrderController::class, 'store'])->name('order.store');
 
     Route::get('/orders', [OrderHistoryController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}', [OrderHistoryController::class, 'show'])->name('orders.show');
 
 });
 
