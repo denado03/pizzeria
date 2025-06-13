@@ -9,7 +9,13 @@
             </button>
         </form>
     </div>
-
+    <div>
+        @if(session('error'))
+            <div style="font-size: 18px; color:red">
+                {{session('error')}}
+            </div>
+        @endif
+    </div>
     <div>
 
         <div>
@@ -27,6 +33,7 @@
                     <form action="{{route('cart.delete', $cartProduct->id)}}" method="post">
                         @csrf
                         @method('delete')
+                        <input type="number" name="quantity" value="1" min="1" max="{{$cartProduct->quantity}}" required>
                         <input type="submit" value="Удалить">
                     </form>
                 </div>
@@ -39,7 +46,7 @@
             Корзина пуста
         @else
             <div>
-                <a href="{{route('order.index')}}">Оформить заказ</a>
+                <a href="{{route('order.create')}}">Оформить заказ</a>
             </div>
         @endif
 

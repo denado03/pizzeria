@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\User;
+use App\Services\CartService;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -28,34 +29,40 @@ class CartController extends Controller
         return view('cart', compact('cartProducts', 'total'));
     }
 
-    public function addToCart(User $user, Product $product, Request $request)
+    public function addToCart(Product $product, Request $request, CartService $cartService)
+    {
+        $quantity = $request->quantity;
+        $user = auth()->user();
+        $typeId = $product->type_id;
+
+        $error = $cartService->addProductToCart($user, $product,  $quantity, $typeId);
+
+        if ($error)
+        {
+            return redirect()->route('catalog')->with('error', $error);
+        }
+        return redirect()->route('catalog')->with('success', 'Товар добавлен в корзину');
+
+    }
+    public function delete(Cart $cart, Request $request)
     {
         $quantity = $request->quantity;
         $user = auth()->user();
 
-        $existingItem = Cart::where('user_id', $user->id)
-            ->where('product_id', $product->id)
-            ->first();
-
-        if($existingItem)
+        if ($quantity > $cart->quantity)
         {
-            $existingItem->quantity+=$quantity;
-            $existingItem->save();
-        } else {
-            Cart::create([
-                'user_id' => $user->id,
-                'product_id' => $product->id,
-                'quantity' => $quantity
-            ]);
+            return redirect()->route('cart.index')->with('error', 'Нельзя удалять больше, чем есть в корзине');
+        }
+        if ($quantity < $cart->quantity)
+        {
+            $cart->quantity -= $quantity;
+            $cart->save();
+        } else
+        {
+            $cart->delete();
+
         }
 
-        return redirect()->route('catalog');
-
-    }
-
-    public function delete(Cart $cart)
-    {
-        $cart->delete();
         return redirect()->route('cart.index');
     }
 }

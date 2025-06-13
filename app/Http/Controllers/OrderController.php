@@ -24,7 +24,7 @@ class OrderController extends Controller
             $total += $item->quantity * $item->product->price;
         }
 
-        return view('order', compact('cartProducts', 'total'));
+        return view('orders.create', compact('cartProducts', 'total'));
     }
 
     public function store(Request $request, OrderService $orderService)

@@ -1,9 +1,10 @@
 <div>
 
-    <a href="">Пиццы</a>
-    <a href="">Напитки</a>
+    <a href="{{route('catalog', ['name' => 'Пицца'])}}">Пиццы</a>
+    <a href="{{route('catalog', ['name' => 'Напиток'])}}">Напитки</a>
     @auth
         <div style="margin-left: 90%">
+            <a href="">Мои заказы</a>
             <form method="GET" action="{{ route('cart.index') }}" style="display:inline">
                 <button type="submit">
                     Корзина
@@ -28,6 +29,17 @@
                 {{session('success')}}
             </div>
         @endif
+        @if(session('error'))
+                <div style="font-size: 18px; color:red">
+                    {{session('error')}}
+                </div>
+        @endif
+    </div>
+
+    <div>
+        <form action="">
+
+        </form>
     </div>
     <div>
         @foreach($products as $product)
@@ -52,13 +64,3 @@
 
     </div>
 </div>
-
-<div class="my-nav">
-    {{$products->links()}}
-</div>
-
-<style>
-    .my-nav svg{
-        width: 20px;
-    }
-</style>

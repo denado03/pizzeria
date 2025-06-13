@@ -5,6 +5,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderHistoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,8 +52,10 @@ Route::middleware('auth')->group(function (){
     Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('addToCart');
     Route::delete('/cart/{cart}', [CartController::class, 'delete'])->name('cart.delete');
 
-    Route::get('/order',[OrderController::class, 'index'])->name('order.index');
+    Route::get('/order',[OrderController::class, 'index'])->name('order.create');
     Route::post('/order',[OrderController::class, 'store'])->name('order.store');
+
+    Route::get('/orders', [OrderHistoryController::class, 'index'])->name('orders.index');
 
 });
 
