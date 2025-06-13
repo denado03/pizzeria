@@ -8,6 +8,7 @@
             <p>Адрес: {{$order->address}}</p>
             <p>Номер телефона: {{$order->phone_number}}</p>
             <p>Email: {{$order->email}}</p>
+            <p>Статус заказа: {{$order->orderStatus->name}}</p>
             <p>От {{$order->created_at}}</p>
             <p>Итоговая цена: {{$order->total_price}} $</p>
             <div>

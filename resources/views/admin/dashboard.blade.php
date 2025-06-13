@@ -11,7 +11,7 @@
 <h3>Admin panel</h3>
 <div>
     <div><a href="{{route('admin.products.index')}}">Продукты</a></div>
-    <div><a href="">Заказы</a></div>
+    <div><a href="{{route('admin.orders.index')}}">Заказы</a></div>
 </div>
 </body>
 </html>

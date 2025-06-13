@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderHistoryController;
-use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,10 @@ Route::middleware(['auth', 'isAdmin'])
         Route::delete('/products/{product}', [ProductController::class, 'delete'])->name('products.delete');
         Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
         Route::post('/products/create', [ProductController::class, 'store'])->name('products.store');
+
+        Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
+        Route::put('/orders/{order}/edit', [AdminOrderController::class, 'update'])->name('orders.update');
     });
 
 Route::middleware('auth')->group(function (){

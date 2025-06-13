@@ -21,8 +21,8 @@ class Order extends Model
             ->withPivot('quantity','price');
     }
 
-    public function status()
+    public function orderStatus()
     {
-        return $this->belongsTo(OrderStatus::class);
+        return $this->belongsTo(OrderStatus::class, 'status_id');
     }
 }
